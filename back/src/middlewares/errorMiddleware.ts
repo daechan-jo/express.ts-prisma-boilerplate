@@ -1,8 +1,13 @@
 import logger from "../config/logger";
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import HttpException from "../utils/errorUtils";
 
-function errorMiddleware(error: HttpException, req: Request, res: Response) {
+function errorMiddleware(
+    error: HttpException,
+    req: Request,
+    res: Response,
+    next: NextFunction,
+) {
     if (error.status) res.status(error.status).send(error.message);
     else res.status(500).json(error.stack);
 
@@ -12,6 +17,7 @@ function errorMiddleware(error: HttpException, req: Request, res: Response) {
     logger.error(
         `[${req.method}] ${req.path} | ${error.status} | [REQUEST] ${reqBodyString} | ${truncatedStack}`,
     );
+    next();
 }
 
 export default errorMiddleware;
