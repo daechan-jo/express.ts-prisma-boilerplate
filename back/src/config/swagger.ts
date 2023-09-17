@@ -4,7 +4,7 @@ const swaggerAutogen = swaggerAutogenInit({ openapi: "3.0.0" });
 const options = {
     info: {
         title: "swagger-example",
-        description: "스웨거 자동 문서화",
+        description: "스웨거 자동 문서화 샘플",
     },
     servers: [
         {
